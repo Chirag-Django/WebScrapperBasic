@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrapper</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container mt-10">
+
+                <div class="row mt-10">
+                    <form action="{% url 'scrape' %}" class="mt-5" method="POST">
+                {% csrf_token %}
+                <input  class="form-control" id="site" name="site" placeholder="Enter Site Address" type="text">
+                
+                <button class="btn btn-success" type="submit" >Scrape</button>
+                <button class="btn btn-warning" type="submit" >Delete</button>
+                </form>
+            </div>
+
+        <div class="row mt-5">
+            <div class="col-md-8">
+                {% if data %}
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Link</th>
+                      </tr>
+                    </thead>
+                    {% for link in data %}
+                    <tbody>
+                      <tr>
+                        <td>{{link.id}}</td>
+                        <td>{{link.name}}</td>
+                        <td>{{link.address}}</td>
+                      </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+                
+                {% else %}
+                <h2>No links Present</h2>
+                {% endif%}
+            </div>
+        </div>
+    </div>
+
+
+    
+</body>
+</html>
